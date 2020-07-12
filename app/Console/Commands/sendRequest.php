@@ -1,8 +1,7 @@
 <?php
 
 namespace App\Console\Commands;
-//use App\FailedRequest;
-//use App\Request;
+
 use Illuminate\Console\Command;
 use App\Events\FailedRequest;
 class sendRequest extends Command
@@ -43,12 +42,10 @@ class sendRequest extends Command
     {
         $this->comment("Send request to url");
         try {
-            $request = $this->client->request('POST', env('URL').'?token='.$this->token);
+            $this->client->request('POST', env('URL').'?token='.$this->token);
         }
         catch(\GuzzleHttp\Exception\BadResponseException $e){
-
             event(new FailedRequest(['error' => $e->getMessage(),'token' =>$this->token ]));
-            
         }
 
     }

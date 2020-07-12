@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        \App\Console\Commands\sendRequest::class
+        \App\Console\Commands\sendRequest::class,
+        \App\Console\Commands\verifyFailedRequests::class
     ];
 
     /**
@@ -24,7 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('command:verifyFailedRequests')->everyMinute();
     }
 
     /**

@@ -26,7 +26,13 @@ class SaveFailed implements ShouldQueue
      */
     public function handle(FailedRequest $event)
     {
-        $request = \App\Request::create(['status' => 'failed','token' =>$event->request['token'] ]);
-        \App\FailedRequest::create(['request_id' => $request->id,'description'=>$event->request['error'] ]);
+        \Log::info('solo actualizar');
+        if(!isset($event->request['request_id']))
+        {
+            $request = \App\Request::create(['status' => 'failed','token' =>$event->request['token'] ]);
+            $request_id = $request->id;
+        }else $request_id = $event->request['request_id'];
+
+        \App\FailedRequest::create(['request_id' => $request_id,'description'=>$event->request['error'] ]);
     }
 }
