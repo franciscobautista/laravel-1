@@ -15,8 +15,8 @@ class CreateRequestsTable extends Migration
     {
         Schema::create('requests', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('estatus');
-            $table->string('token');
+            $table->string('status')->nullable();
+            $table->string('token')->nullable();
             $table->timestamps();
         });
     }
